@@ -5,7 +5,10 @@
   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
-  <include file="db/changelog/0000-init-db.xml"/>
-  <include file="db/changelog/0001-add-banner-col-to-product.xml"/>
+  <changeSet id="add-banner-col-to-product" author="zoroaster">
+    <sql>
+      ALTER TABLE product ADD COLUMN "featured_banner" UUID DEFAULT NULL;
+    </sql>
+  </changeSet>
 
 </databaseChangeLog>

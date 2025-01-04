@@ -1,9 +1,12 @@
-'use client'
+import { ThemeProvider } from 'next-themes'
+import { type ReactNode, type FC } from 'react'
 
-import * as React from 'react'
-import { ThemeProvider as NextThemesProvider } from 'next-themes'
-import { type ThemeProviderProps } from 'next-themes/dist/types'
-
-export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
-  return <NextThemesProvider defaultTheme='light' {...props}>{children}</NextThemesProvider>
+type Props = {
+  children: ReactNode
 }
+
+export const IcecreamThemeProvider: FC<Props> = ({ children }) => (
+  <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+    {children}
+  </ThemeProvider>
+)

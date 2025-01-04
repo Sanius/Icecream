@@ -13,7 +13,7 @@ const Page = async () => {
   if (!isLoggedIn(session)) {
     return <UnauthorizedPage />
   }
-  const customerInfoResponse = await requestGetCustomerProfile(session as Session)
+  const customerInfoResponse = await requestGetCustomerProfile(session as unknown as Session)
 
   return (
     <div className="container grid grid-cols-12 items-start gap-6 pt-4 pb-16">

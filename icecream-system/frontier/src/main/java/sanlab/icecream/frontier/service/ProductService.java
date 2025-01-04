@@ -51,9 +51,11 @@ public class ProductService {
     private final IImageMapper imageMapper;
 
     @Transactional(readOnly = true)
-    public CollectionQueryResponse<ProductExtendedDto> getAll(Pageable pageable) {
-        Page<Product> paginatedProducts = productRepository.findAll(pageable);
-        long total = productRepository.count();
+    public CollectionQueryResponse<ProductExtendedDto> getAll(Pageable pageable, boolean featuredOnly) {
+        Page<Product> paginatedProducts = featuredOnly ?
+            productRepository.findAllByIsFeaturedTrue(pageable) :
+            productRepository.findAll(pageable);
+        long total = featuredOnly ? productRepository.countByIsFeaturedTrue() : productRepository.count();
         List<ProductExtendedDto> productList = productMapper.entityToExtendedDto(paginatedProducts.stream().toList());
         return CollectionQueryResponse.<ProductExtendedDto>builder()
             .total(total)

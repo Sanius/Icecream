@@ -6,10 +6,23 @@ import type { ProductExtended, RequestAllParams, RequestAllResult } from '@/type
 const requestAllProducts = async ({
   pagination,
   sorting,
-}: RequestAllParams): Promise<RequestAllResult<ProductExtended>> => {
-  const url = generateUrl(FRONTIER_URL, [API_PATHS.PRODUCT], { pagination, sorting })
+}: RequestAllParams, featuredOnly?: boolean): Promise<RequestAllResult<ProductExtended>> => {
+  const extendedPath = [API_PATHS.PRODUCT]
+  if (featuredOnly) extendedPath.push('featured')
+  const url = generateUrl(FRONTIER_URL, extendedPath, { pagination, sorting })
   const response = await fetch(url)
   return response.json()
+}
+
+export const request10FeaturedProducts = async (): Promise<ProductExtended[]> => {
+  const pagination = { limit: 10, offset: 0 }
+  const sorting = { field: 'createdAt', order: 'DESC' }
+  try {
+    const { data } = await requestAllProducts({ pagination, sorting }, true)
+    return data
+  } catch (err) {
+    return []
+  }
 }
 
 export const request10RecommendedProducts = async (): Promise<ProductExtended[]> => {
@@ -23,8 +36,8 @@ export const request10RecommendedProducts = async (): Promise<ProductExtended[]>
   }
 }
 
-export const request10NewProducts = async (): Promise<ProductExtended[]> => {
-  const pagination = { limit: 10, offset: 0 }
+export const request12NewProducts = async (): Promise<ProductExtended[]> => {
+  const pagination = { limit: 12, offset: 0 }
   const sorting = { field: 'modifiedAt', order: 'DESC' }
   try {
     const { data } = await requestAllProducts({ pagination, sorting })

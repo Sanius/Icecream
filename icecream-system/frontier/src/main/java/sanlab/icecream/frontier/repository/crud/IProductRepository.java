@@ -13,7 +13,8 @@ public interface IProductRepository extends JpaRepository<Product, UUID> {
 
     @NotNull
     Page<Product> findAll(@NotNull Pageable pageable);
-
+    Page<Product> findAllByIsFeaturedTrue(@NotNull Pageable pageable);
+    long countByIsFeaturedTrue();
     Optional<Product> findFirstByOrderByName();
 
 }

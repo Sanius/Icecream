@@ -17,4 +17,5 @@ public class ProductExtendedDto extends ProductDto {
     private List<CategoryDto> categories;
     private List<ImageDto> media;
     private List<StockDto> stocks;
+    private ImageDto featuredBanner;
 }

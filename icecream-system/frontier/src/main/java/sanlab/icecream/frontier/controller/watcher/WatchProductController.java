@@ -36,7 +36,7 @@ public class WatchProductController {
 
     @GetMapping
     public CollectionQueryResponse<ProductExtendedDto> getAll(@ModelAttribute CollectionQueryRequest request) {
-        return productService.getAll(request.getPageRequest());
+        return productService.getAll(request.getPageRequest(), false);
     }
 
     @GetMapping("/{id}")

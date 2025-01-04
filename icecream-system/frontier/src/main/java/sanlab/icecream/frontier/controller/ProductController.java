@@ -28,7 +28,13 @@ public class ProductController {
     @GetMapping
     @PreAuthorize(PERMIT_ALL)
     public CollectionQueryResponse<ProductExtendedDto> getAll(@ModelAttribute CollectionQueryRequest request) {
-        return productService.getAll(request.getPageRequest());
+        return productService.getAll(request.getPageRequest(), false);
+    }
+
+    @GetMapping("/featured")
+    @PreAuthorize(PERMIT_ALL)
+    public CollectionQueryResponse<ProductExtendedDto> getAllFeatured(@ModelAttribute CollectionQueryRequest request) {
+        return productService.getAll(request.getPageRequest(), true);
     }
 
     @GetMapping("/{id}")

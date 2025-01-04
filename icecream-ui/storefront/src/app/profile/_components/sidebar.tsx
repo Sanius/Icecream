@@ -7,7 +7,7 @@ type Props = {
 }
 
 export const SideBar: FC<Props> = ({ customerInfo }) => {
-  const { firstName, lastName } = customerInfo
+  const { firstName, lastName, media, addresses } = customerInfo
   return (
     <div className="col-span-3">
       <div className="px-4 py-3 shadow flex items-center gap-4">
